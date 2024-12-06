@@ -1,12 +1,12 @@
 <script setup lang="ts">
-  import { RouterLink, RouterView } from "vue-router";
+import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <RouterLink class="navbar-brand" to="/">
-        <i class="bi bi-question-square"></i>
+        <i class="bi bi-emoji-kiss"></i>
         Quiz
       </RouterLink>
       <button
@@ -24,8 +24,14 @@
         <ul class="navbar-nav">
           <li class="nav-item">
             <RouterLink class="nav-link" to="/about">
-              <i class="bi bi-info-square"></i>
+              <i class="bi bi-exclamation-circle"></i>
               À propos
+            </RouterLink>
+          </li>
+          <li class="nav-item">
+            <RouterLink class="nav-link" to="/trivia">
+              <i class="bi bi-question"></i>
+              Trivia
             </RouterLink>
           </li>
         </ul>
