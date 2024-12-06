@@ -92,7 +92,7 @@ Qu'est-ce qu'un v-model ?
 
 Il es possible de modifier les questions afin de personnaliser le projet. On peut aussi ajouter plus de choix, ou même des cases vides à remplir.
 
-# Semaine 2, début du projet.
+# Semaine 2.
 
 | Tâche  | Temps estimé| Temps passé | Difficulté rencontrée | Solution | commentaire|
 | ------------ | ----| ----------- | ---------------------|----- | --- |
@@ -101,7 +101,7 @@ Il es possible de modifier les questions afin de personnaliser le projet. On peu
 |  QuestionCheckbox | 30min |  1h05min |  compter le score avec le choix multiple| Aucune pour l'instant |Même si je réponds à toutes les réponses justes, il ne valide que 3 réponses justes, les réponses du choix multiple ne sont jamais prises en compte. 
 |  API | 1h | 20min |aucune  | | Je pensais que ce serait plus long
 |Modification des questions| 15min | 16 min| | |je voulais personnaliser un peu le Quiz
-| Total        |   2h25min     |                 |   |    |
+| Total        |   2h25min     |     2h51min            |   |    |
 
 
 # Explications et réflexions sur le code
@@ -115,3 +115,9 @@ Comment rendre la propriété placeholder optionnelle ?
 
         Pour rendre la propriété placeholder optionnelle, il suffit de la déclarer dans les props avec un type défini et de lui attribuer une valeur par défaut, comme une chaîne vide.
 
+# Semaine 3.
+| Tâche  | Temps estimé| Temps passé | Difficulté rencontrée | Solution | commentaire|
+| ------------ | ----| ----------- | ---------------------|----- | --- |
+|   Réponse | 20min   |    |   | | |
+|  Score | 20min |   |      | | |
+| Total        |       |                 |   |    |
