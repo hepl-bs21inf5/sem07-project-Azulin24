@@ -101,6 +101,7 @@ Il es possible de modifier les questions afin de personnaliser le projet. On peu
 |  QuestionCheckbox | 30min |  1h05min |  compter le score avec le choix multiple| Aucune pour l'instant |Même si je réponds à toutes les réponses justes, il ne valide que 3 réponses justes, les réponses du choix multiple ne sont jamais prises en compte. 
 |  API | 1h | 20min |aucune  | | Je pensais que ce serait plus long
 |Modification des questions| 15min | 16 min| | |je voulais personnaliser un peu le Quiz
+| Raport | 30min | 40min  |  | | |
 | Total        |   2h25min     |     2h51min            |   |    |
 
 
@@ -120,6 +121,7 @@ Comment rendre la propriété placeholder optionnelle ?
 | ------------ | ----| ----------- | ---------------------|----- | --- |
 |   Réponse | 1h   | 55min   |   | | |
 |  Score | 30min | 50min  |    totalScore ne calculait pas le score maximal possible.   | il fallait modifier la définition de totalScore pour qu'elle utilise Object.keys() sur correctAnswersData car avant j'essayais de calculer la valeur totalScore en utilisant la propriété length sur un objet, ce qui n'est pas valide.| J'ai demandé de l'aide à ChatGPT mais il modifiait des choses qu'il fallait pas donc j'ai passé beaucoup de temps à trier la bonne information.|
+| Raport | 30min | 50min  |  | ||
 | Total        |  1h30min     |  1h45               |   |    |
 
 # Explications et réflexions sur le code
