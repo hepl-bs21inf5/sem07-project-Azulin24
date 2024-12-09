@@ -12,7 +12,7 @@
 | Bootstrap| 1h20min |   18min |           |  | Je pensais que ça allait être plus long|
 |  Quiz | 1h | 1h 57min | 1.- Je ne savais pas comment faire pour afficher le score à la fin du quiz. La boucle for sur Javascript toujours pas maîtrisée au 100% 2.- je ne trouvais pas nav, je le cherchais sur le document html |  1.-l'ajouter la variable "let score" recommandé par chatgpt. 2.- l'enseigant m'a dit où il se trouvait |
 | Raport | 25min |  58min |  | | Aucune difficultée rencontrée, je pensais juste que ça allait être plus rapide avec des réponses courtes. 
-| Total        |  3h25min       |                 |   |    |
+| Total        |  3h45min       |      3h32min           |   |    |
 
 # Explications et réflexions sur le code
 
@@ -102,7 +102,7 @@ Il es possible de modifier les questions afin de personnaliser le projet. On peu
 |  API | 1h | 20min |aucune  | | Je pensais que ce serait plus long
 |Modification des questions| 15min | 16 min| | |je voulais personnaliser un peu le Quiz
 | Raport | 30min | 40min  |  | | |
-| Total        |   2h25min     |     2h51min            |   |    |
+| Total        |   2h55min     |     3h31min            |   |    |
 
 
 # Explications et réflexions sur le code
@@ -122,7 +122,7 @@ Comment rendre la propriété placeholder optionnelle ?
 |   Réponse | 1h   | 55min   |   | | |
 |  Score | 30min | 50min  |    totalScore ne calculait pas le score maximal possible.   | il fallait modifier la définition de totalScore pour qu'elle utilise Object.keys() sur correctAnswersData car avant j'essayais de calculer la valeur totalScore en utilisant la propriété length sur un objet, ce qui n'est pas valide.| J'ai demandé de l'aide à ChatGPT mais il modifiait des choses qu'il fallait pas donc j'ai passé beaucoup de temps à trier la bonne information.|
 | Raport | 30min | 50min  |  | ||
-| Total        |  1h30min     |  1h45               |   |    |
+| Total        |  2h     |  2h35               |   |    |
 
 # Explications et réflexions sur le code
 À quoi sert l'option immediate: true dans le watch ? Que se passe-t-il si on l'enlève ou si on met immediate: false ?
