@@ -118,6 +118,48 @@ Comment rendre la propriété placeholder optionnelle ?
 # Semaine 3.
 | Tâche  | Temps estimé| Temps passé | Difficulté rencontrée | Solution | commentaire|
 | ------------ | ----| ----------- | ---------------------|----- | --- |
-|   Réponse | 20min   |    |   | | |
-|  Score | 20min |   |      | | |
-| Total        |       |                 |   |    |
+|   Réponse | 1h   | 55min   |   | | |
+|  Score | 30min | 50min  |    totalScore ne calculait pas le score maximal possible.   | il fallait modifier la définition de totalScore pour qu'elle utilise Object.keys() sur correctAnswersData car avant j'essayais de calculer la valeur totalScore en utilisant la propriété length sur un objet, ce qui n'est pas valide.| J'ai demandé de l'aide à ChatGPT mais il modifiait des choses qu'il fallait pas donc j'ai passé beaucoup de temps à trier la bonne information.|
+| Total        |  1h30min     |  1h45               |   |    |
+
+# Explications et réflexions sur le code
+À quoi sert l'option immediate: true dans le watch ? Que se passe-t-il si on l'enlève ou si on met immediate: false ?
+
+- Comportement de immediate: true
+
+        Lorsque immediate: true est défini, la fonction de rappel (ici updateCorrectAnswers) est exécutée immédiatement une fois que le watch est défini, avant même qu'une des propriétés observées ne change. Cela permet d'initialiser ou de synchroniser des valeurs dès que le composant est monté, en tenant compte de l'état initial des propriétés observées.
+
+        Dans mon code, immediate: true garantit que la fonction updateCorrectAnswers est exécutée immédiatement, ce qui remplit initialement la valeur de correctAnswers avec une évaluation basée sur l'état actuel des réponses utilisateurs (toutes initialisées à null ou []).
+
+- Si on enlève immediate: true ou si on met immediate: false
+
+        La fonction updateCorrectAnswers ne sera pas appelée automatiquement après que le watch soit configuré.
+        Elle ne sera exécutée qu'en réponse à des modifications ultérieures des propriétés observées (MachuPicchu, Gastronomie, oiseau, attractions_Perou).
+        Donc, la valeur initiale de correctAnswers restera dans son état par défaut ([false, false, false, false]) jusqu'à ce que l'utilisateur commence à interagir avec les champs.
+        Si on affiche des résultats basés sur correctAnswers avant une interaction, ils seront incorrects ou non pertinents (par exemple, affichant "Réponse correcte : false" pour toutes les questions dès le début).
+
+Proposer une autre manière de calculer le score (réécrire la fonction du computed) et comparer les deux méthodes.
+
+- Méthodes: 
+
+        La méthode utilisée est donc filter pour extraire les valeurs true dans le tableau correctAnswers.value, puis utilise length pour compter le nombre de réponses correctes.
+
+        const score = computed<number>(() => correctAnswers.value.filter((value) => value).length);
+
+        Une autre manière de calculer le score serait d'utiliser "reduce", donc: 
+
+        const score = computed<number>(() => correctAnswers.value.reduce((acc, value) => acc + (value ? 1 : 0), 0));
+
+        Cette méthode prend une fonction de rappel et un accumulateur initial (ici, 0). Pour chaque élément de correctAnswers.value, la fonction de rappel ajoute 1 à l'accumulateur si l'élément est true, sinon elle ajoute 0. À la fin, "reduce" retourne le total des valeurs, c'est-à-dire le score.
+
+- Comparasion:
+
+        Les deux méthodes ont des performances comparables pour la plupart des cas d'utilisation courants. Cependant, reduce peut être légèrement plus performant dans certaines situations, car il effectue l'itération en une seule passe et ajoute un résultat directement, tandis que filter crée un nouveau tableau.
+
+        filter est plus déclarative et directe, ce qui rend cette méthode plus simple à comprendre. Par contre,la méthode avec "reduce" est un peu plus complexe, surtout si on n'est pas habitué à reduce. Il faut comprendre comment fonctionne l'accumulateur et comment il est mis à jour à chaque itération. Cependant, une fois compris, reduce est une méthode très puissante et flexible car il permet d'appliquer n'importe quelle logique à chaque élément (surtout si les calculs deviennent plus complexes).
+
+- En conclusion:
+
+        Pour les petits tableaux et si le but est d'avoir une solution simple et facile à comprendre, il faut utiliser filter + length, ce qui est généralement suffisant.
+        Pour les tableaux plus grands ou s'il faut effectuer des calculs plus complexes sur chaque élément, reduce peut être plus performant et plus flexible.
+        Dans notre code, les deux méthodes donnent le même résultat: le score calculé en fonction des réponses correctes.

@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, defineProps, defineEmits, watch, type PropType } from 'vue'
 
 const props = defineProps({
-  id: String,
-  text: String,
+  id: { type: String, required: true },
+  text: { type: String, required: true },
+  answer: { type: String, required: true },
+  modelValue: { type: String, default: '' },
   placeholder: String,
-  modelValue: String,
 })
-const emit = defineEmits(['update:modelValue'])
 
-const localValue = ref(props.modelValue || '')
+const emit = defineEmits(['update:modelValue'])
+const localValue = ref(props.modelValue)
 
 watch(
   () => props.modelValue,
@@ -30,7 +31,7 @@ function updateValue() {
       :id="id"
       v-model="localValue"
       class="form-control"
-      placeholder="Veuillez saisir un nombre"
+      placeholder="Veuillez saisir un mot"
       @input="updateValue"
     />
   </div>

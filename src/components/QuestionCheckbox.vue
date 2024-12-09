@@ -1,21 +1,29 @@
 <script setup lang="ts">
-import { defineProps, ref, watch } from 'vue'
+import { defineProps, defineEmits, ref, watch } from 'vue';
 
 // Définir les propriétés que le composant recevra
-const { id, text, options, modelValue } = defineProps<{
-  id: string
-  text: string
-  options: { value: string; text: string }[]
-  modelValue: string[]
-}>()
+const props = defineProps<{
+  id: string;
+  text: string;
+  options: { value: string; text: string }[];
+  modelValue: string[];
+}>();
+
+// Émettre l'événement pour la mise à jour de la valeur
+const emit = defineEmits(['update:modelValue']);
 
 // Utilisation d'une variable locale pour suivre les réponses sélectionnées
-const selectedAnswers = ref<string[]>(modelValue)
+const selectedAnswers = ref<string[]>(props.modelValue);
+
+// Regarder les changements sur la prop `modelValue` pour synchroniser la valeur
+watch(() => props.modelValue, (newValue) => {
+  selectedAnswers.value = newValue;
+});
 
 // Émettre la mise à jour vers le parent lorsqu'une option est sélectionnée/désélectionnée
 watch(selectedAnswers, (newValue) => {
-  emit('update:modelValue', newValue)
-})
+  emit('update:modelValue', newValue);
+});
 </script>
 
 <template>
@@ -33,3 +41,4 @@ watch(selectedAnswers, (newValue) => {
     </div>
   </div>
 </template>
+
