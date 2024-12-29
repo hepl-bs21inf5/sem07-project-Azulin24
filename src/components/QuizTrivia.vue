@@ -17,19 +17,19 @@ const filled = computed<boolean>(() =>
   questionStates.value.every((state) => state === QuestionState.Fill),
 ) // propriété calculée qui indique si toutes les questions ont été remplies par l'utilisateur (toutes les réponses ne sont pas vides).
 
-const score = computed<number>(
-  () => questionStates.value.filter((state) => state === QuestionState.Correct).length,
-) // propriété calculée qui compte le nombre de réponses correctes en fonction des états des questions.
-
 const submitted = computed<boolean>(() =>
   questionStates.value.every(
     (state) => state === QuestionState.Correct || state === QuestionState.Wrong,
   ),
 ) // propriété calculée qui indique si toutes les questions ont été soumises (réponses correctes ou incorrectes).
 
+const score = computed<number>(
+  () => questionStates.value.filter((state) => state === QuestionState.Correct).length,
+) // propriété calculée qui compte le nombre de réponses correctes en fonction des états des questions.
+
 const totalScore = computed<number>(() => questionStates.value.length) // propriété calculée qui donne le nombre total de questions.
 
-const answers = reactive<{ [key: number]: QuestionState }>({}) // associe à chaque question son état
+const answers =reactive<{ [key: number]: QuestionState }>({}) // associe à chaque question son état
 
 function reset(event: Event): void {
   event.preventDefault() // Empêche le comportement par défaut de l'événement (rechargement de la page).
@@ -62,6 +62,7 @@ fetch('https://opentdb.com/api.php?amount=10&type=multiple')
       :key="index"
       v-model="questionStates[index]"
       :text="question.question"
+      :answer="question.correct_answer"
       :options="[
         { value: question.correct_answer, text: question.correct_answer },
         ...question.incorrect_answers.map((answer) => ({
@@ -78,3 +79,4 @@ fetch('https://opentdb.com/api.php?amount=10&type=multiple')
     <!-- Affichage du score total si toutes les questions ont été soumises. -->
   </form>
 </template>
+
