@@ -312,3 +312,7 @@ Aussi, je ne sais pas pourquoi quand j'appuie sur réinitialiser, les questions 
 
 # Commentaire
 Actuellement, je me vois capable de faire plus d'amélioration (comme Trivia ou questionselect.vue) mais je suis très fatigué de ce projet. Je suis satisfait du résultat et fier de moi, mais je n'ai pas prévu de passer plus de temps que ça (j'ai d'autres choses à réviser). Par contre, c'est hyper sympa d'avoir appris à créer un site, je le referai probablement, mais pas dans un future proche.
+
+# Lien
+
+ https://hepl-bs21inf5.github.io/sem07-project-Azulin24/
