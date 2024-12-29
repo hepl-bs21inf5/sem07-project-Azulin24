@@ -40,11 +40,11 @@ Le rôle de:
 
 - HomeView.vue : 
     
-        Composant pour la page d'accueil, servant de point d'entrée visuel à l'application.
+        Composant pour la page d'accueil, servant de point d'entrée visuel à l'application. (Fait appel au fichier Quizform.vue)
 
 - QuizForm.vue : 
     
-        Composant interactif pour poser des questions, collecter des réponses, et gérer un quiz.Ainsi, il est conçu pour interagir avec l'utilisateur via un formulaire. Il gère aussi la logique d'intéraction comme la validation des réponses, le calcul de score ou de résultats, la soumission des données.
+        Composant interactif pour poser des questions, collecter des réponses, et gérer un quiz.Ainsi, il est conçu pour interagir avec l'utilisateur via un formulaire (dans ce cas, notre quiz). Il gère aussi la logique d'intéraction comme la validation des réponses, le calcul de score ou de résultats, la soumission des données.
 
 
 Dans le fichier QuizForm.vue :
@@ -98,7 +98,7 @@ Il es possible de modifier les questions afin de personnaliser le projet. On peu
 | ------------ | ----| ----------- | ---------------------|----- | --- |
 |   Question radio | 20min   | 20min   |   | | |
 |  QuestionText | 20min | 50min  |    je ne savais pas quoi écrire sur QuestionText.vue pour que ça  marche correctement    | J'ai demandé de l'aide à chatgpt afin de compléter mon code| J'ai passé quelques 1.5-2.5 heures supplémentaires à comprendre chaque changement que l'IA me recommendait de faire (je triais le plus important)|
-|  QuestionCheckbox | 30min |  1h05min |  compter le score avec le choix multiple| Aucune pour l'instant |Même si je réponds à toutes les réponses justes, il ne valide que 3 réponses justes, les réponses du choix multiple ne sont jamais prises en compte. 
+|  QuestionCheckbox | 30min |  1h05min |  compter le score avec le choix multiple| Aucune pour l'instant |Même si je réponds à toutes les réponses justes, il ne valide que 3 réponses justes, et jamais le checkbox car je ne peux pas mettre plusieurs réponses. 
 |  API | 1h | 20min |aucune  | | Je pensais que ce serait plus long
 |Modification des questions| 15min | 16 min| | |je voulais personnaliser un peu le Quiz
 | Raport | 30min | 40min  |  | | |
@@ -165,3 +165,150 @@ Proposer une autre manière de calculer le score (réécrire la fonction du comp
         Pour les petits tableaux et si le but est d'avoir une solution simple et facile à comprendre, il faut utiliser filter + length, ce qui est généralement suffisant.
         Pour les tableaux plus grands ou s'il faut effectuer des calculs plus complexes sur chaque élément, reduce peut être plus performant et plus flexible.
         Dans notre code, les deux méthodes donnent le même résultat: le score calculé en fonction des réponses correctes.
+
+
+# Semaine 4.
+
+| Tâche  | Temps estimé| Temps passé | Difficulté rencontrée | Solution | commentaire|
+| ------------ | ----| ----------- | ---------------------|----- | --- |
+|   Etats |  1h15min  |  58min |   | | |
+|  Boutons | 50 min |  41min |    | | les reponses ne se vident toujours po
+|  Réponses immuables|  10 min  |  2min |   | | |
+| Raport | 45min |  30min |  | ||
+| Total        |  3h     |    2h11min            |   |    |
+
+# Explications et réflexions sur le code
+
+
+Comment pourrait-on réécrire la ligne suivante sans l'opérateur ternaire (avec des if et else) ?
+model.value =
+  value.value === props.answer ? QuestionState.Correct : QuestionState.Wrong;
+
+
+        on peut écrire:
+        if (value.value === props.answer) {
+        model.value = QuestionState.Correct;
+        } else {
+        model.value = QuestionState.Wrong;
+        }
+
+
+Comment pourrait-on réécrire autrement la logique du watch sur value ?
+
+        On peut simplemement utiliser un computed: 
+        const model = {
+        value: computed(() => {
+        return value.value === null ? QuestionState.Empty : QuestionState.Fill;
+        }),
+        };
+        Plus besoin d'utiliser un watch pour synchroniser model.value, car computed le met à jour automatiquement.
+
+# Semaine 5.
+
+| Tâche  | Temps estimé| Temps passé | Difficulté rencontrée | Solution | commentaire|
+| ------------ | ----| ----------- | ---------------------|----- | --- |
+|   Réponse détaillée |  30min  |  10min |   | | |
+|  Style | 10min | 2min  |    | |
+| Raport | 40min | 25min  |  | ||
+| Total        |  1h20min    |  37min              |   |    |
+
+# Explications et réflexions sur le code
+
+Ajouter ce computed dans QuestionRadio.vue :
+const answerText = computed<string>(
+  () =>
+    props.options.find((option) => option.value === props.answer)?.text ??
+    props.answer,
+);
+Remplacer {{ props.answer }} par {{ answerText }} dans le template.
+
+Expliquer pourquoi on a fait ce changement ainsi que le code du computed.
+
+
+        On souhaite rechercher, dans props.options, une option qui correspond à la valeur de props.answer. Si une correspondance est trouvée, cette option est retournée. En utilisant un computed, on crée une propriété réactive qui sera recalculée automatiquement dès que props.answer ou props.options sera modifié.
+
+
+Que se passe-t-il lorsqu'on ne met pas de valeur à answer-detail ? Est-ce satisfaisant ? Si ce n'est pas le cas, proposer une amélioration.
+
+
+        Si aucune valeur n'est fournie à answer-detail, la propriété sera indéfinie, ce qui peut entraîner des comportements inattendus ou des affichages vides. Pour améliorer cela, on peut définir une valeur par défaut dans les props (par exemple, une chaîne vide) ou rendre la propriété obligatoire avec required: true. Une autre option est de gérer ce cas dans le template en affichant un message alternatif comme "Aucune information disponible".
+
+
+
+# Semaine 6.
+
+| Tâche  | Temps estimé| Temps passé | Difficulté rencontrée | Solution | commentaire|
+| ------------ | ----| ----------- | ---------------------|----- | --- |
+|   Déploiement | 15min |  |   | ||
+|  Amélioration QuestionText.vue | 1h |  1h |    | | 
+| Amélioration Trivia | 2h |  58min |    || pas fini car je suis fatigué| 
+| Raport | 45min | 1h30min  |  | ||
+| Vérification du code et problèmes à régler   |  1h     |     4h           |  Beaucoup, plus de détail à la fin du report |    | Pleins de fautes accumulées avec le temps.
+| Total        |  3h     |                |   |    |
+
+
+
+# Améliorations
+
+QuestionCheckbox.vue : Sélectionner plusieurs réponses.
+
+- Pourquoi avez-vous choisi ces améliorations ? 
+        
+        Je l'avais déjà commencé en cours donc j'ai juste décidé de le finir.
+
+- Comment les avez-vous implémentées ? 
+
+        C'était pareil que radio, il fallait aujouter une liste de réponses et un watch qui surveillait les réponses.
+
+- Quels problèmes avez-vous rencontrés ? 
+        
+        Le bouton "terminer" ne s'activait jamais, j'ai passé des semaines à essayer de comprendre le pourquoi, je ne sais pas pourquoi mais j'ai décidé d'effacer la question "checkbox" et tout marcahait comme prévu. Après avoir analysé le code mille fois, je me suis rendu compte que je n'avais  pas changé le type à checkbox, j'avais laissé type="radio". Aussi, le fait de créer une liste de réponses et pas une seule était difficile à comprendre, j'ai demandé de l'aide à une camarade et m'a dit qu'il fallait juste changer le type de answer et par conséquent le watch aussi
+- Quelles améliorations pourriez-vous encore apporter ? 
+
+        Je ne sais vraiment pas, juste styliser pour que ce soit plus beau.
+
+Accepter plusieurs réponses possibles pour QuestionText.vue (par exemple, "2" ou "deux").
+
+- Pourquoi avez-vous choisi ces améliorations ? 
+
+        C'est celle qui semblait le plus facile.
+
+- Comment les avez-vous implémentées ?
+
+        Answer est aussi une liste, mais cette fois le watch aussi devait être changé, si newModel est égal à QuestionState.Submit, il faut vérifier si la réponse de l'utilisateur correspond à une des réponses possibles (props.answer).
+
+- Quels problèmes avez-vous rencontrés ? 
+
+        Pas vraiment de problème, c'était assez simple. Juste, faire la liste de LIMA. lima. ou Lima c'était pas fifou, donc j'ai décidé de faire que le programme convertisse la réponse donnée par l'utilisateur en minuscule.
+
+- Quelles améliorations pourriez-vous encore apporter ?
+
+        Accepter les réponses qui sont en un autre langage je suppose. 
+
+Adapter le Trivia pour pouvoir y jouer.
+
+- Pourquoi avez-vous choisi ces améliorations ? 
+
+        ça avait l'air compliqué donc j'ai décidé de tester.
+
+- Comment les avez-vous implémentées ? 
+
+        J'ai surtout copié collé beaucoup d'infos qui y sont déjà sur Questionradio car c'est des QCM avec une seule réponse. Les boutons je l'ai pris de quizform.
+
+- Quels problèmes avez-vous rencontrés ? 
+
+        Pour l'instant aucun.
+
+- Quelles améliorations pourriez-vous encore apporter ? 
+
+        Comme c'est des questions au hasard, j'aimerais bien ajouter un bouton pour avoir des nouvelles questions.
+
+
+# Diffultés en général
+
+J'ai passé beaucoup de temps les premières semaines à comprendre ce que je faisais, souvent je comprenais même pas, cela est devenu un problème quand mon code ne marchait plus alors que je fasais tout "juste", des petites choses comme le type ou le model restaient des concepts assez abstraits pour que je puisse comprendre complètement. Après avoir passé énormément de temps sur le projet, j'ai commencé à comprendre, surtout en enlevant et en rajoutant des lignes. J'ai remarqué qu'il y avait beaucoup de choses inutiles, je me suis beaucoup aidé de chatgpt au début et je comprenais l'explication donnée de chaque élément individuel, mais l'ensemble restait flou. Je n'avais aucun guide (ou c'est ce que je pensais) et j'avais mis un tableau comparatif afin de donner les bonnes réponses à la machine. J'avais une const AnswerDataUpdate car cela me parassait trè logique. Puis j'ai remarqué que answer était déjà indiqué dans la propre question: id="oiseau" v-model="questionStates[2]"et là il y  answer='Condor', je sais pas pourquoi ça m'a pris du temps alors que ça reste très logique. J'avais quand mêmê peur d'effacer le tableau, jusqu'à que un ami me dise que sur le site github il y a le code exemple de l'enseignant (je savais déjà mais je pensais pas qu'il y avait vraiment le code, je pensais qu'il y avait juste le lien du site comme exemple). Avec ce code j'ai réglé toutes les petites fautes et j'ai mieux adapté questionradio et questiontext, ce qui m'a aidé pour régler mon problème sur Chekbox.
+
+Aussi, je ne sais pas pourquoi quand j'appuie sur réinitialiser, les questions radio ne se vident pas, pourtant, l'état affiche "empty". J'ai regardé plusieurs fois si la function ou le button étaient bien écrit mais tout est correct. Je n'ai toujours pas trouvé de solution, je suppose (et j'espère) que c'est juste un beug de mon ordi.
+
+# Commentaire
+Actuellement, je me vois capable de faire plus d'amélioration (comme Trivia ou questionselect.vue) mais je suis très fatigué de ce projet. Je suis satisfait du résultat et fier de moi, mais je n'ai pas prévu de passer plus de temps que ça (j'ai d'autres choses à réviser). Par contre, c'est hyper sympa d'avoir appris à créer un site, je le referai probablement, mais pas dans un future proche.
