@@ -239,12 +239,12 @@ Que se passe-t-il lorsqu'on ne met pas de valeur à answer-detail ? Est-ce satis
 
 | Tâche  | Temps estimé| Temps passé | Difficulté rencontrée | Solution | commentaire|
 | ------------ | ----| ----------- | ---------------------|----- | --- |
-|   Déploiement | 15min |  |   | ||
+|   Déploiement | 15min | 50min |   | ||  Je pouvais pas laisser Trivia incomplet
 |  Amélioration QuestionText.vue | 1h |  1h |    | | 
 | Amélioration Trivia | 2h |  58min |    || pas fini car je suis fatigué| 
 | Raport | 45min | 1h30min  |  | ||
-| Vérification du code et problèmes à régler   |  1h     |     4h           |  Beaucoup, plus de détail à la fin du report |    | Pleins de fautes accumulées avec le temps.
-| Total        |  3h     |                |   |    |
+| Vérification du code et problèmes à régler   |  1h     |     3h           |  Beaucoup, plus de détail à la fin du report |    | Pleins de fautes accumulées avec le temps.
+| Total        |  5h     |    7h18min            |   |    |
 
 
 
@@ -298,6 +298,7 @@ Adapter le Trivia pour pouvoir y jouer.
 - Quels problèmes avez-vous rencontrés ? 
 
         Pour l'instant aucun.
+        J'avais juste oublié d'ajouter :answer="question.correct_answer", le code m'affichait erreur sur questionradio donc j'ai perdu du temps à vérifier que questionradio était correct (alors que c'était en effet correct)
 
 - Quelles améliorations pourriez-vous encore apporter ? 
 
